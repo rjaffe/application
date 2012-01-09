@@ -1,0 +1,37 @@
+{
+    "acquisitionReason": "newvalue",
+	"acquisitionDates":[],
+    "acquisitionReferenceNumber": "acquisitionReferenceNumber",
+	
+    "accessionDate": "April 1, 2010",
+    "acquisitionSources": [{
+        "_primary": true,
+        "acquisitionSource": "11111"
+    },
+    {
+        "de-urned-acquisitionSource": "TEST4",
+        "acquisitionSource": "urn:cspace:core.collectionspace.org:personauthorities:name(person):item:name(TEST4)'TEST4'"
+    }],
+    "acquisitionMethod": "acquisitionMethod",
+    "acquisitionFunding": [{
+        "acquisitionFundingSourceProvisos": "F",
+        "_primary": true,
+        "acquisitionFundingSource": "D",
+        "acquisitionFundingCurrency": "A",
+        "acquisitionFundingValue": "S"
+    },
+    {
+        "acquisitionFundingSourceProvisos": "Fq",
+        "acquisitionFundingSource": "Dq",
+        "acquisitionFundingCurrency": "Aq",
+        "acquisitionFundingValue": "Sq"
+    }],
+    "owners": [{
+		"_primary": true,
+        "owner": "urn:cspace:core.collectionspace.org:personauthorities:name(person):item:name(TEST4)'TEST4'",
+        "de-urned-owner": "TEST4"
+ 	}],
+	
+    "fieldCollectionEventNames": [],
+	"ownersource" :"11111"
+}

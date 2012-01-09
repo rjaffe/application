@@ -1,0 +1,23 @@
+{
+    "namespaces": {
+        "properties": {
+            "person": {
+                "default": ["person", "persontest1", "persontest2"],
+                "type": "array"
+            },
+            "organization": {
+                "default": ["organization","organizationtest"],
+                "type": "array"
+            },
+            "location": {
+                "default": ["location"],
+                "type": "array"
+            },
+            "taxon": {
+                "default": ["taxon"],
+                "type": "array"
+            }
+        },
+        "type": "object"
+    }
+}

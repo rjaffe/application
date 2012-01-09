@@ -1,0 +1,13 @@
+{
+    "exitNumber": "EX2011.5",
+    "exitNote": "exitNote",
+    "currentOwner": "currentOwner",
+    "exitMethods": [
+        {
+            "exitMethod": "exitMethod"
+        }
+    ],
+    "packingNote": "packingNote",
+    "exitReason": "exitReason",
+    "depositor": "depositor",
+}

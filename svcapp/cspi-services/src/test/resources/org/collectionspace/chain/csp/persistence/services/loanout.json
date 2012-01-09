@@ -1,0 +1,23 @@
+{
+  "loanOutNumber": "LO2010.117",
+  "borrower": "urn:cspace:core.collectionspace.org:personauthorities:name(person):item:name(TEST4)'TEST4'",
+  "de-urned-borrower": "TEST4",
+  "borrowersContact": "urn:cspace:core.collectionspace.org:personauthorities:name(person):item:name(TEST4)'TEST4'",
+  "de-urned-borrowersContact": "TEST4",
+  "loanReturnDate": "January 29, 2012",
+  "loanPurpose": "Allow people in cold climes to share the magic of Surfboards of the 1960s, via planned exhibition beginning 2 March 2011.",
+  "loanStatusGroup": [
+        {
+            "_primary": true,
+            "loanStatus": "returned",
+            "loanStatusDate": "November 11, 2010",
+            "loanStatusNote": "Back in the barn."
+        },
+        {
+            "loanStatus": "sent",
+            "loanStatusDate": "November 1, 2010",
+            "loanStatusNote": ""
+        }
+    ]
+
+}

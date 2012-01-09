@@ -1,0 +1,23 @@
+{
+    "recordtypes": {
+        "properties": {
+            "vocabularies": {
+                "default": ["location","organization","organizationtest","person","persontest1","persontest2","taxon"],
+                "type": "array"
+            },
+            "procedures": {
+                "default": ["intake", "loanin", "loanout", "acquisition", "movement", "media", "objectexit", "group"],
+                "type": "array"
+            },
+            "cataloging": {
+                "default": ["cataloging"],
+                "type": "array"
+            },
+            "administration": {
+                "default": ["role","termlist", "users"],
+                "type": "array"
+            }
+        },
+        "type": "object"
+    }
+}

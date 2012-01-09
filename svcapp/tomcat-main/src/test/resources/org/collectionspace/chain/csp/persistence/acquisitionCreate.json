@@ -1,0 +1,12 @@
+{
+    "acquisitionReason": "acquisitionReason",
+    "acquisitionReferenceNumber": "acquisitionReferenceNumber",
+    "acquisitionMethod": "acquisitionMethod",
+
+    "acquisitionSources": [{
+        "acquisitionSource": "11111"
+    },
+    {
+        "acquisitionSource": "22222"
+    }]
+}
