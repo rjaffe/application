@@ -400,6 +400,7 @@ public class XmlJsonConversion {
 				return;
 			}
 			addExtraToJson(out, el, f, tempSon);
+			Object val = el.getText();
 
 			if(f.getUIType().startsWith("groupfield")){
 				String parts[] = f.getUIType().split("/");
@@ -413,10 +414,13 @@ public class XmlJsonConversion {
 				out.put(f.getID(),temp);
 			}
 			else{
-				out.put(f.getID(),el.getText());
+				if(f.getDataType().equals("boolean")){
+					val = Boolean.parseBoolean((String)val);
+				}
+				out.put(f.getID(),val);
 			}
 	
-			tempSon = addtemp(tempSon, f.getID(), el.getText());
+			tempSon = addtemp(tempSon, f.getID(), val);
 		}
 	}
 	
@@ -510,54 +514,54 @@ public class XmlJsonConversion {
 		List<String> children = new ArrayList<String>();
 		
 		if(f.getUIType().startsWith("groupfield")){
- 	 	 	    String parts[] = f.getUIType().split("/");
- 	 	 	    Record subitems = f.getRecord().getSpec().getRecordByServicesUrl(parts[1]);
- 	 	 	    for(FieldSet fs : subitems.getAllFieldTopLevel(operation)) {
- 	 	 	            children.add(fs.getID());
- 	 	        }
- 	 	}
-
+			String parts[] = f.getUIType().split("/");
+			Record subitems = f.getRecord().getSpec().getRecordByServicesUrl(parts[1]);
+			for(FieldSet fs : subitems.getAllFieldTopLevel(operation)) {
+				children.add(fs.getID());
+			}
+		}
+		
 		if(f instanceof Repeat){
-			    for(FieldSet a : ((Repeat)f).getChildren(operation)){
-				        if(a instanceof Repeat && ((Repeat)a).hasServicesParent()){
-					            children.add(((Repeat)a).getServicesParent()[0]);
-				        }
-				        else if(a.getUIType().startsWith("groupfield")){
-					            //structuredates etc
-					            String parts[] = a.getUIType().split("/");
-					            Record subitems = a.getRecord().getSpec().getRecordByServicesUrl(parts[1]);
+			for(FieldSet a : ((Repeat)f).getChildren(operation)){
+				if(a instanceof Repeat && ((Repeat)a).hasServicesParent()){
+					children.add(((Repeat)a).getServicesParent()[0]);
+				}
+				else if(a.getUIType().startsWith("groupfield")){
+					//structuredates etc
+					String parts[] = a.getUIType().split("/");
+					Record subitems = a.getRecord().getSpec().getRecordByServicesUrl(parts[1]);
 
-					            if(a instanceof Group){
- 	 	 	                            if(((Group)a).getXxxServicesNoRepeat()){
-					                            for(FieldSet fs : subitems.getAllFieldTopLevel(operation)) {
-						                                if(fs instanceof Repeat && ((Repeat)fs).hasServicesParent()){
-							                                    children.add(((Repeat)fs).getServicesParent()[0]);
-						                                }
-						                                else{
-							                                    children.add(fs.getID());
-						                                }
-					                            }
-				                        }
-				                        else{
-				                    	        children.add(a.getID());
-				                        }
-			                    }
-		                }
-		                else{
-                                children.add(a.getID());
-                        }
-                }
-        }
-        if(f instanceof Group){
-                for(FieldSet a : ((Group)f).getChildren(operation)){
-                        children.add(a.getID());
-                }
-        }
-        if(f instanceof Field){
-
-        }
-        return children;
-    }
+					if(a instanceof Group){
+						if(((Group)a).getXxxServicesNoRepeat()){
+							for(FieldSet fs : subitems.getAllFieldTopLevel(operation)) {
+								if(fs instanceof Repeat && ((Repeat)fs).hasServicesParent()){
+									children.add(((Repeat)fs).getServicesParent()[0]);
+								}
+								else{
+									children.add(fs.getID());
+								}
+							}
+						}
+						else{
+							children.add(a.getID());
+						}
+					}
+				}
+				else{
+					children.add(a.getID());
+				}
+			}
+		}
+		if(f instanceof Group){
+			for(FieldSet a : ((Group)f).getChildren(operation)){
+				children.add(a.getID());
+			}
+		}
+		if(f instanceof Field){
+			
+		}
+		return children;
+	}
 	
 	/* Repeat syntax is challenging for dom4j */
 	private static JSONArray extractRepeatData(Element container,FieldSet f, String permlevel) throws JSONException {
@@ -609,35 +613,35 @@ public class XmlJsonConversion {
 		List<FieldSet> children = new ArrayList<FieldSet>();
 
 		if(parent.getUIType().startsWith("groupfield")){
-            String parts[] = parent.getUIType().split("/");
-            Record subitems = parent.getRecord().getSpec().getRecordByServicesUrl(parts[1]);
-            for(FieldSet fd : subitems.getAllFieldTopLevel(operation)) {
-                children.add(fd);
-             }
-        }
-
-
+			String parts[] = parent.getUIType().split("/");
+			Record subitems = parent.getRecord().getSpec().getRecordByServicesUrl(parts[1]);
+			for(FieldSet fd : subitems.getAllFieldTopLevel(operation)) {
+				children.add(fd);
+			}
+		}
+		
+		
 		for(FieldSet fs : parent.getChildren(operation)) {
 
 			if(fs.getUIType().startsWith("groupfield")){
 				String parts[] = fs.getUIType().split("/");
 				Record subitems = fs.getRecord().getSpec().getRecordByServicesUrl(parts[1]);
-
-                if(fs instanceof Group){
-                    if(((Group)fs).getXxxServicesNoRepeat()){
-                        for(FieldSet fd : subitems.getAllFieldTopLevel(operation)) {
-                            children.add(fd); //non-nested groupfields?
-                        }
-                    }
-                    else{
-                        //this one should be nested
-                        children.add(fs);
-                    }
-                }
-                else{
-                    for(FieldSet fd : subitems.getAllFieldTopLevel(operation)) {
-                        children.add(fd); //what about nested groupfields?
-                    }
+				
+				if(fs instanceof Group){
+					if(((Group)fs).getXxxServicesNoRepeat()){
+						for(FieldSet fd : subitems.getAllFieldTopLevel(operation)) {
+							children.add(fd); //non-nested groupfields?
+						}
+					}
+					else{
+						//this one should be nested
+						children.add(fs);
+					}
+				}
+				else{
+					for(FieldSet fd : subitems.getAllFieldTopLevel(operation)) {
+						children.add(fd); //what about nested groupfields?
+					}
 				}
 			}
 			else{
@@ -768,7 +772,7 @@ public class XmlJsonConversion {
 			List<?> nodes=root.selectNodes(nodeName);
 			if(nodes.size()==0)
 				return;
-
+			
 			// Only first element is important in group container
 			for(Object repeatcontainer : nodes){
 				Element container=(Element)repeatcontainer;

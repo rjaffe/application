@@ -36,11 +36,30 @@ public class VocabulariesRead implements WebMethod {
 	private Instance n;
 	private String base;
 	private Spec spec;
+	private boolean showbasicinfoonly;
 	private Map<String,String> type_to_url=new HashMap<String,String>();
-	
+
 	public VocabulariesRead(Instance n) {
+		this.showbasicinfoonly = false;
 		this.base=n.getID();
 		this.n=n;
+		if(this.spec == null){
+			this.spec = n.getRecord().getSpec();
+			for(Record r : spec.getAllRecords()) {
+				type_to_url.put(r.getID(),r.getWebURL());
+			}
+		}
+	}
+	public VocabulariesRead(Instance n, Boolean showbasicinfoonly) {
+		this.showbasicinfoonly = showbasicinfoonly;
+		this.base=n.getID();
+		this.n=n;
+		if(this.spec == null){
+			this.spec = n.getRecord().getSpec();
+			for(Record r : spec.getAllRecords()) {
+				type_to_url.put(r.getID(),r.getWebURL());
+			}
+		}
 	}
 	
 	public void configure(WebUI ui,Spec spec) {
@@ -267,10 +286,13 @@ public class VocabulariesRead implements WebMethod {
 			out.put("csid",csid);
 			out.put("fields",fields);
 			out.put("namespace",n.getWebURL());
-			out.put("relations",new JSONArray());
-			//out.put("relations",relations);
-			out.put("termsUsed",getTermsUsed(storage,refPath+csid));
-			out.put("refobjs",getRefObj(storage,refPath+csid));
+
+			if(!showbasicinfoonly){
+				out.put("relations",new JSONArray());
+				//out.put("relations",relations);
+				out.put("termsUsed",getTermsUsed(storage,refPath+csid));
+				out.put("refobjs",getRefObj(storage,refPath+csid));
+			}
 		} catch (ExistException e) {
 			UIException uiexception =  new UIException(e.getMessage(),e);
 			return uiexception.getJSON();
