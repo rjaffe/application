@@ -246,7 +246,7 @@
             <field id="footprintSRS"/>
             <field id="footprintSpatialFit"/>
             <field id="geoReferencedBy"/>
-            <field id="geoRefDate"/>
+            <group id="geoRefDateGroup" ui-type="groupfield/structureddate" primarykey="dateDisplayDate" ui-func="cspace.structuredDate"></group>
             <field id="geoRefProtocol"><!-- See http://code.google.com/p/darwincore/wiki/Location#georeferenceProtocol -->
                 <options>
                     <option id="" default="yes">Please select a value</option>
