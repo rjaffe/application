@@ -107,7 +107,7 @@
         <!-- Next field developed for Admin status field in top row of wireframe, but then... -->
         <!-- discarded in favor of Term status field common to all authorities -->
         <!--<field id="placeRecordAdminStatus"/>-->
-        <field id="termStatus">
+        <field id="termStatus" ui-search="repeatable" seperate_ui_container="true" mini="search,list,relate">
             <selector>place-termStatus</selector>
             <options>
                 <option id="provisional">Provisional</option>
