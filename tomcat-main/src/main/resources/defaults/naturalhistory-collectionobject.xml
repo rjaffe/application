@@ -83,6 +83,7 @@
 					<option id="annotation as filed">annotation as filed</option>
 					<option id="identification or reidentification">identification or reidentification</option>
 					<option id="variant name">variant name</option>
+                                        <option id="previously_filed_as">previously filed as</option>
 				</options>
 			</field>
 			<field id="reference" section="naturalhistory">
